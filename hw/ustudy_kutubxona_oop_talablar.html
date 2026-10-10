@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ustudy Amaliyot — Kutubxona (OOP): Book loyihasi davomi</title>
+<style>
+  :root{
+    --bg:#0e1424; --card:#161e33; --card2:#1c2542; --ink:#eef1ff; --muted:#9aa6c9;
+    --blue:#3b62d6; --blue2:#2946A6; --green:#47B520; --green2:#5fd634;
+    --warn:#ffb454; --err:#ff6b81; --code-bg:#0a0f1e; --radius:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6;}
+  .wrap{max-width:900px; margin:0 auto; padding:20px 16px 60px;}
+  header{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:8px;}
+  h1{font-size:1.45rem; background:linear-gradient(90deg,#5b83f5,#5fd634); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .sub{color:var(--muted); margin-bottom:18px;}
+  .card{background:var(--card); border:1px solid #253059; border-radius:var(--radius); padding:18px 20px; margin:16px 0;}
+  .card h2{font-size:1.15rem; margin-bottom:10px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .chip{background:var(--card2); border:1px solid #2b3560; border-radius:999px; padding:5px 14px; font-size:.85rem; font-family:Consolas,monospace;}
+  .chip b{color:var(--green2); font-weight:normal;}
+  .chip .ls{color:var(--muted); font-size:.75rem;}
+  code{background:var(--code-bg); border:1px solid #253059; border-radius:6px; padding:1px 7px; font-family:Consolas,monospace; font-size:.86em; color:#8be98b;}
+  .msg{background:var(--code-bg); border:1px solid #253059; border-left:3px solid var(--warn); border-radius:8px; padding:6px 12px; font-family:Consolas,monospace; font-size:.86rem; color:#ffd9a0; margin:4px 0; display:inline-block;}
+  .msg.ok{border-left-color:var(--green); color:#b6ffc8;}
+  .step{border:1px solid #253059; border-radius:12px; padding:14px 16px; margin:12px 0; background:var(--card2);}
+  .step .n{display:inline-flex; width:28px; height:28px; border-radius:8px; background:var(--blue2); color:#fff; align-items:center; justify-content:center; font-weight:bold; margin-right:8px;}
+  .step h3{display:inline; color:var(--ink); font-size:1rem;}
+  .step ul{margin:10px 0 0 22px;}
+  .step li{margin:5px 0;}
+  .warnbox{background:#3d2f10; border:1px solid #8a6a1e; color:#ffd479; border-radius:10px; padding:10px 14px; margin:12px 0;}
+  .bonus{border:1px dashed var(--warn);}
+  .term{background:#0a0f14; border:1px solid #1d2b3a; border-radius:12px; overflow:hidden; margin-top:12px;}
+  .term-head{display:flex; align-items:center; gap:6px; background:#101826; padding:8px 12px; border-bottom:1px solid #1d2b3a;}
+  .dot{width:11px; height:11px; border-radius:50%;}
+  .term-head span.t{margin-left:8px; color:var(--muted); font-size:.8rem; font-family:Consolas,monospace;}
+  #tout{padding:14px; font-family:Consolas,monospace; font-size:.9rem; white-space:pre-wrap; min-height:220px; max-height:380px; overflow-y:auto; color:#c9f5d3;}
+  .term-in{display:flex; border-top:1px solid #1d2b3a;}
+  .term-in span{padding:10px 0 10px 14px; color:var(--green2); font-family:Consolas,monospace;}
+  #tin{flex:1; background:transparent; border:none; outline:none; color:#eaffea; font-family:Consolas,monospace; font-size:.95rem; padding:10px 14px 10px 8px;}
+  .tbtn{background:var(--card2); border:1px solid #2b3560; color:var(--ink); border-radius:999px; padding:6px 14px; cursor:pointer; font-size:.85rem;}
+  .tbtn:hover{border-color:var(--blue);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  @media(max-width:700px){ .grid2{grid-template-columns:1fr;} }
+  .chk{display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:10px; cursor:pointer;}
+  .chk:hover{background:var(--card2);}
+  .chk input{width:18px; height:18px; margin-top:3px; accent-color:var(--green);}
+  .progressbar{height:10px; background:var(--code-bg); border-radius:999px; overflow:hidden; border:1px solid #253059; margin:10px 0 4px;}
+  .progressbar > div{height:100%; width:0; background:linear-gradient(90deg,var(--blue),var(--green2)); transition:width .3s;}
+  #chkmsg{color:var(--muted); font-size:.9rem;}
+  footer{text-align:center; color:var(--muted); font-size:.85rem; margin-top:30px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <svg width="106" height="40" viewBox="0 0 118 44" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="16" r="15" fill="#2946A6"/><text x="22" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="18" fill="#fff">U</text><rect x="8" y="22" width="86" height="20" rx="10" fill="#47B520" transform="rotate(-4 8 32)"/><text x="50" y="37" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="14" fill="#fff" transform="rotate(-4 8 32)">study</text></svg>
+  <h1>📚 Amaliyot: Kutubxona tizimi — Book loyihasi davomi</h1>
+</header>
+<p class="sub">4-5-darslar amaliyoti • class • standart qiymat • obyekt ichida obyekt • meros • super() • override • inkapsulyatsiya</p>
+
+<div class="card">
+  <h2>🎯 Bugun nima quramiz?</h2>
+  <p>Darsda boshlagan <b>Book loyihamiz</b>ni to'liq tizimga aylantiramiz! 4-darsda <code>Author</code> va <code>Book</code> yozgandik. Endi ularga 5-darsning kuchi — <b>meros</b> qo'shilib, terminalda ishlaydigan haqiqiy kutubxona chiqadi.</p>
+  <div class="chips">
+    <span class="chip"><b>class</b> + __init__ <span class="ls">4-dars</span></span>
+    <span class="chip"><b>standart qiymat</b> subject="umumiy" <span class="ls">4-dars</span></span>
+    <span class="chip"><b>obyekt ichida obyekt</b> book.author <span class="ls">4-dars</span></span>
+    <span class="chip"><b>meros</b> + super() <span class="ls">5-dars</span></span>
+    <span class="chip"><b>override</b> get_info() <span class="ls">5-dars</span></span>
+    <span class="chip"><b>private</b> __items <span class="ls">5-dars</span></span>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🗺 Tizim modeli (UML)</h2>
+  <div style="text-align:center;">
+    <svg viewBox="0 0 620 250" style="max-width:620px; width:100%;">
+      <g font-family="Consolas,monospace" font-size="12">
+        <rect x="20" y="20" width="140" height="86" rx="6" fill="#1c2542" stroke="#8fb0ff" stroke-width="1.6"/>
+        <text x="90" y="40" text-anchor="middle" fill="#8fb0ff" font-weight="bold" font-family="Segoe UI">Catalog</text>
+        <line x1="20" y1="48" x2="160" y2="48" stroke="#8fb0ff"/>
+        <text x="30" y="64" fill="#ffb3c0">-__items (private!)</text>
+        <text x="30" y="80" fill="#c9f5d3">+add()  +search()</text>
+        <text x="30" y="96" fill="#c9f5d3">+hammasi()  +jami()</text>
+        <rect x="250" y="20" width="150" height="80" rx="6" fill="#1c2542" stroke="#5fd634" stroke-width="1.6"/>
+        <text x="325" y="40" text-anchor="middle" fill="#8dffb0" font-weight="bold" font-family="Segoe UI">LibraryItem (ota)</text>
+        <line x1="250" y1="48" x2="400" y2="48" stroke="#5fd634"/>
+        <text x="260" y="64" fill="#c9f5d3">+title  +subject</text>
+        <text x="260" y="80" fill="#c9f5d3">+get_info()</text>
+        <rect x="470" y="30" width="120" height="60" rx="6" fill="#1c2542" stroke="#ffb454" stroke-width="1.6"/>
+        <text x="530" y="50" text-anchor="middle" fill="#ffd479" font-weight="bold" font-family="Segoe UI">Author</text>
+        <line x1="470" y1="58" x2="590" y2="58" stroke="#ffb454"/>
+        <text x="480" y="76" fill="#c9f5d3">+name</text>
+        <line x1="160" y1="60" x2="250" y2="60" stroke="#465079" stroke-width="1.6"/>
+        <text x="205" y="52" text-anchor="middle" fill="#9aa6c9" font-size="10" font-family="Segoe UI">saqlaydi</text>
+        <g stroke="#5fd634" stroke-width="1.6" fill="none">
+          <line x1="325" y1="100" x2="325" y2="130"/>
+          <line x1="105" y1="130" x2="545" y2="130"/>
+          <line x1="105" y1="130" x2="105" y2="160"/>
+          <line x1="325" y1="130" x2="325" y2="160"/>
+          <line x1="545" y1="130" x2="545" y2="160"/>
+        </g>
+        <rect x="35" y="160" width="140" height="70" rx="6" fill="#1c2542" stroke="#5fd634"/>
+        <text x="105" y="180" text-anchor="middle" fill="#8dffb0" font-weight="bold" font-family="Segoe UI">📕 Book</text>
+        <text x="45" y="198" fill="#c9f5d3">+author (obyekt!)</text>
+        <text x="45" y="214" fill="#c9f5d3">get_info() override</text>
+        <rect x="255" y="160" width="140" height="70" rx="6" fill="#1c2542" stroke="#5fd634"/>
+        <text x="325" y="180" text-anchor="middle" fill="#8dffb0" font-weight="bold" font-family="Segoe UI">📰 Magazine</text>
+        <text x="265" y="198" fill="#c9f5d3">+issue</text>
+        <text x="265" y="214" fill="#c9f5d3">get_info() override</text>
+        <rect x="475" y="160" width="140" height="70" rx="6" fill="#1c2542" stroke="#5fd634"/>
+        <text x="545" y="180" text-anchor="middle" fill="#8dffb0" font-weight="bold" font-family="Segoe UI">📀 DVD</text>
+        <text x="485" y="198" fill="#c9f5d3">+director</text>
+        <text x="485" y="214" fill="#c9f5d3">get_info() override</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🖥️ Tayyor dastur qanday ishlaydi — o'zingiz sinab ko'ring!</h2>
+  <p>Bu sizning maqsadingiz. Terminal — <b>tayyor dasturning aynan nusxasi</b> (3 ta element yuklangan holda boshlanadi):</p>
+  <div class="term">
+    <div class="term-head">
+      <span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>
+      <span class="t">python kutubxona.py</span>
+    </div>
+    <div id="tout"></div>
+    <div class="term-in"><span>›</span><input id="tin" placeholder="Javobingizni yozib Enter bosing..." autocomplete="off"></div>
+  </div>
+  <p style="margin-top:8px"><button class="tbtn" id="btnRestart">↺ Qayta boshlash</button>
+  <button class="tbtn" id="btnScenario">🎬 Avtomatik ko'rsatuv (demo)</button></p>
+</div>
+
+<div class="card">
+  <h2>📋 Talablar — dasturingiz shularni bajarishi SHART</h2>
+
+  <div class="step"><span class="n">1</span><h3>Author va LibraryItem (ota klass)</h3>
+    <ul>
+      <li><code>Author</code>: bitta atribut — <code>name</code>.</li>
+      <li><code>LibraryItem</code>: <code>title</code> va <code>subject</code> atributlari. <b>Standart qiymat:</b> <code>subject="umumiy"</code>.</li>
+      <li><code>get_info()</code> metodi umumiy ma'lumot qaytarsin.</li>
+    </ul>
+  </div>
+
+  <div class="step"><span class="n">2</span><h3>Uchta merosxo'r: Book, Magazine, DVD</h3>
+    <ul>
+      <li>Uchchalasi <code>LibraryItem</code> dan meros olsin, konstruktorda albatta <code>super().__init__(...)</code>!</li>
+      <li>📕 <code>Book</code>: qo'shimcha <code>author</code> — matn EMAS, <b>Author obyekti</b>! (obyekt ichida obyekt)</li>
+      <li>📰 <code>Magazine</code>: qo'shimcha <code>issue</code> (nechanchi son); subject avtomatik "jurnal" bo'lsin.</li>
+      <li>📀 <code>DVD</code>: qo'shimcha <code>director</code>; subject sifatida janr saqlansin.</li>
+      <li>Har birida <code>get_info()</code> <b>override</b> qilinsin (polimorfizm!):<br>
+        <span class="msg ok">📕 Kitob: "O'tkan kunlar" — Abdulla Qodiriy | mavzu: roman</span><br>
+        <span class="msg ok">📰 Jurnal: "Fan va turmush" — 5-son</span><br>
+        <span class="msg ok">📀 DVD: "Shum bola" — rej. D. Salimov | janr: komediya</span></li>
+    </ul>
+  </div>
+
+  <div class="step"><span class="n">3</span><h3>Catalog — inkapsulyatsiya bilan</h3>
+    <ul>
+      <li>Elementlar ro'yxati <b>private</b> bo'lsin: <code>self.__items</code> — tashqaridan to'g'ridan-to'g'ri tegib bo'lmasin!</li>
+      <li><code>add(item)</code> — qo'shadi va tasdiq chiqaradi: <span class="msg ok">✅ Katalogga qo'shildi: ...</span></li>
+      <li><code>search(soz)</code> — nomida shu so'z bor elementlarni qaytaradi (katta-kichik harfni farqlamasin — <code>.lower()</code>).</li>
+      <li><code>hammasi()</code> va <code>jami()</code> metodlari.</li>
+    </ul>
+  </div>
+
+  <div class="step"><span class="n">4</span><h3>Menyu (main qism)</h3>
+    <ul>
+      <li><code>while True</code> menyu: 1-Kitob, 2-Jurnal, 3-DVD qo'shish, 4-Qidirish, 5-Hammasini ko'rsatish, 0-Chiqish.</li>
+      <li>Kitobda mavzu so'ralganda bo'sh Enter bosilsa — <b>standart qiymat</b> "umumiy" ishlasin!</li>
+      <li>Jurnal sonida <code>int(input())</code> ni <code>try/except</code> bilan himoyalang: <span class="msg">Xato: Son kiriting!</span></li>
+      <li>Qidiruv natijasida har elementning <code>get_info()</code> si chaqirilsin — polimorfizm O'ZI to'g'ri formatni tanlaydi!</li>
+      <li>Hammasini ko'rsatishda oxirida: <span class="msg ok">Jami: 7 ta element</span></li>
+      <li>Noma'lum tanlov: <span class="msg">Bunday bo'lim yo'q!</span> — dastur qulamasin.</li>
+    </ul>
+  </div>
+
+  <div class="warnbox">⚠️ <b>Oltin qoida:</b> <code>catalog.__items</code> ga tashqaridan tegish MUMKIN EMAS — hamma ish metodlar orqali! Baholashda men <code>print(catalog.__items)</code> yozib ko'raman — AttributeError chiqishi kerak. 😉</div>
+</div>
+
+<div class="card bonus">
+  <h2>⭐ Bonus (qo'shimcha ball)</h2>
+  <p>1) <b>Muallif bo'yicha qidiruv:</b> <code>search()</code> kitobning <code>author.name</code> ichidan ham qidirsin ("qodiriy" deb qidirsak topilsin).</p>
+  <p>2) <b>Band qilish:</b> har elementga <code>band</code> atributi (standart <code>False</code>) va <code>ijaraga_ber()</code> / <code>qaytar()</code> metodlari; band elementni ko'rsatishda 🔒 belgisi chiqsin.</p>
+  <p>3) <b>Statistika:</b> <code>statistika()</code> metodi nechta kitob, jurnal, DVD borligini alohida sanasin (maslahat: <code>type(item).__name__</code> yoki <code>isinstance</code>).</p>
+</div>
+
+<div class="card">
+  <h2>✅ O'z-o'zini tekshirish ro'yxati</h2>
+  <div class="progressbar"><div id="pbar"></div></div>
+  <p id="chkmsg">0 / 10 bajarildi</p>
+  <div id="checks"></div>
+</div>
+
+<footer>Ustudy • Python 2-modul amaliyoti • Kutubxona (OOP)</footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+// checklist
+var ITEMS = [
+  "Author va LibraryItem klasslari yozildi (subject standart qiymat bilan)",
+  "Book, Magazine, DVD — uchchalasi super().__init__ bilan meros oldi",
+  "Book ichida author — Author OBYEKTI (matn emas!)",
+  "Har klassda get_info() override qilingan, formatlar to'g'ri",
+  "Catalog'da __items private — tashqaridan AttributeError",
+  "add() tasdiq xabari bilan ishlaydi",
+  "search() katta-kichik harfni farqlamaydi",
+  "Kitob mavzusida bo'sh Enter → 'umumiy' (standart qiymat ishladi)",
+  "Jurnal soni try/except bilan himoyalangan",
+  "Menyu to'liq ishlaydi, noma'lum tanlovda qulamaydi"
+];
+var box = document.getElementById('checks');
+ITEMS.forEach(function(t,i){
+  var d = document.createElement('div'); d.className='chk';
+  d.innerHTML = '<input type="checkbox" id="c'+i+'"><label for="c'+i+'">'+t+'</label>';
+  box.appendChild(d);
+});
+box.addEventListener('change', function(){
+  var n = box.querySelectorAll('input:checked').length;
+  document.getElementById('pbar').style.width = (n*10)+'%';
+  document.getElementById('chkmsg').textContent = n+' / 10 bajarildi' + (n===10 ? " — 🏆 Loyiha tayyor! O'qituvchiga ko'rsating!" : '');
+});
+
+// terminal demo
+var tout = document.getElementById('tout'), tin = document.getElementById('tin');
+var items, state, buf;
+function w(t, c){
+  var s=document.createElement('span');
+  if(c==='u'){s.style.color='var(--warn)';s.style.fontWeight='bold';}
+  if(c==='e'){s.style.color='#ff8ba0';}
+  if(c==='s'){s.style.color='#7fb2ff';}
+  s.textContent=t; tout.appendChild(s); tout.scrollTop=tout.scrollHeight;
+}
+function info(it){
+  if(it.t==='book') return '📕 Kitob: "'+it.title+'" — '+it.a+' | mavzu: '+it.s;
+  if(it.t==='mag')  return '📰 Jurnal: "'+it.title+'" — '+it.a+'-son';
+  return '📀 DVD: "'+it.title+'" — rej. '+it.a+' | janr: '+it.s;
+}
+function menu(){ w("\n===== USTUDY KUTUBXONA (OOP) =====\n1. Kitob qo'shish\n2. Jurnal qo'shish\n3. DVD qo'shish\n4. Qidirish\n5. Hammasini ko'rsatish\n0. Chiqish\nTanlang: ", 's'); state='menu'; }
+function reset(){
+  tout.innerHTML=''; buf={};
+  items = [
+    {t:'book', title:"O'tkan kunlar", a:"Abdulla Qodiriy", s:"roman"},
+    {t:'mag',  title:"Fan va turmush", a:5, s:"jurnal"},
+    {t:'dvd',  title:"Shum bola", a:"D. Salimov", s:"komediya"}
+  ];
+  items.forEach(function(it){ w("✅ Katalogga qo'shildi: "+info(it)+"\n"); });
+  menu(); tin.disabled=false;
+}
+function handle(v){
+  if(state==='off') return;
+  if(state==='menu'){
+    if(v==='1'){ w("Kitob nomi: ",'s'); state='b1'; }
+    else if(v==='2'){ w("Jurnal nomi: ",'s'); state='m1'; }
+    else if(v==='3'){ w("DVD nomi: ",'s'); state='d1'; }
+    else if(v==='4'){ w("Qidiruv so'zi: ",'s'); state='q'; }
+    else if(v==='5'){
+      items.forEach(function(it){ w(info(it)+"\n"); });
+      w("Jami: "+items.length+" ta element\n"); menu();
+    }
+    else if(v==='0'){ w("Xayr! Kitob o'qishni unutmang 📖\n"); state='off'; tin.disabled=true; }
+    else { w("Bunday bo'lim yo'q!\n",'e'); menu(); }
+    return;
+  }
+  if(state==='b1'){ buf.title=v; w("Muallif: ",'s'); state='b2'; return; }
+  if(state==='b2'){ buf.a=v; w("Mavzu (Enter = umumiy): ",'s'); state='b3'; return; }
+  if(state==='b3'){
+    var it={t:'book', title:buf.title, a:buf.a, s:(v.trim()===''?'umumiy':v)};
+    items.push(it); w("✅ Katalogga qo'shildi: "+info(it)+"\n"); menu(); return;
+  }
+  if(state==='m1'){ buf.title=v; w("Nechanchi son? ",'s'); state='m2'; return; }
+  if(state==='m2'){
+    if(!/^\d+$/.test(v.trim())){ w("Xato: Son kiriting!\n",'e'); menu(); return; }
+    var it={t:'mag', title:buf.title, a:parseInt(v,10), s:'jurnal'};
+    items.push(it); w("✅ Katalogga qo'shildi: "+info(it)+"\n"); menu(); return;
+  }
+  if(state==='d1'){ buf.title=v; w("Rejissyor: ",'s'); state='d2'; return; }
+  if(state==='d2'){ buf.a=v; w("Janr: ",'s'); state='d3'; return; }
+  if(state==='d3'){
+    var it={t:'dvd', title:buf.title, a:buf.a, s:v};
+    items.push(it); w("✅ Katalogga qo'shildi: "+info(it)+"\n"); menu(); return;
+  }
+  if(state==='q'){
+    var s=v.toLowerCase();
+    var found = items.filter(function(it){ return it.title.toLowerCase().indexOf(s)!==-1; });
+    if(found.length===0) w("Hech narsa topilmadi.\n",'e');
+    else{ found.forEach(function(it){ w(info(it)+"\n"); }); w("Topildi: "+found.length+" ta\n"); }
+    menu(); return;
+  }
+}
+tin.addEventListener('keydown', function(e){
+  if(e.key!=='Enter') return;
+  var v=tin.value; tin.value='';
+  w(v+"\n",'u'); handle(v);
+});
+document.getElementById('btnRestart').addEventListener('click', reset);
+
+var DEMO=['5','1','Ufq','Said Ahmad','','2','Gulxan','abc','4','ufq','9','0'];
+var demoRun=false;
+document.getElementById('btnScenario').addEventListener('click', function(){
+  if(demoRun) return; demoRun=true; reset();
+  var i=0;
+  var iv=setInterval(function(){
+    if(i>=DEMO.length){ clearInterval(iv); demoRun=false; return; }
+    var v=DEMO[i++]; w(v+"\n",'u'); handle(v);
+  }, 850);
+});
+reset();
+})();
+</script>
+</body>
+</html>

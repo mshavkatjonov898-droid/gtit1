@@ -1,0 +1,11 @@
+[LOG] 1-xona qo'shildi
+[LOG] 1-xona qo'shildi
+[LOG] 100-xona qo'shildi
+[LOG] ism 100-xonaga joylashdi
+[LOG] 1-xona qo'shildi
+[LOG] ism 1-xonaga joylashdi
+[LOG] ism 1-xonadan chiqdi
+[LOG] 1-xona qo'shildi
+[LOG] 1 ta xona saqlandi
+[LOG] 1-xona qo'shildi
+[LOG] 1 ta xona fayldan yuklandi
